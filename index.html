@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-slate-50">
+<html lang="es" class="h-full bg-slate-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,14 +19,14 @@
                 extend: {
                     colors: {
                         sba: {
-                            yellow: '#FFC72C',
-                            yellowDark: '#E5B000',
-                            green: '#008744',
-                            greenDark: '#006B35',
-                            navy: '#002B49',
+                            red: '#C8102E',         /* Rojo institucional aCuenta */
+                            redDark: '#A00C24',
+                            navy: '#002B49',        /* Azul institucional */
                             navyDark: '#001A2D',
-                            red: '#D62828',
-                            grayBg: '#F8FAFC'
+                            yellow: '#FFC72C',      /* Amarillo acento */
+                            green: '#008744',       /* Indicadores positivos */
+                            greenDark: '#006B35',
+                            statusRed: '#D62828'    /* Indicadores negativos */
                         }
                     },
                     fontFamily: {
@@ -54,28 +54,28 @@
         }
     </style>
 </head>
-<body class="h-full font-sans text-slate-800 antialiased flex flex-col selection:bg-sba-yellow selection:text-sba-navy">
+<body class="h-full font-sans text-slate-800 antialiased flex flex-col selection:bg-sba-red selection:text-white">
 
     <!-- TOP BAR DE NAVEGACIÓN -->
     <header class="bg-sba-navy text-white sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- LOGO / TITULO -->
+                <!-- LOGO / TITULO EN PARTE SUPERIOR IZQUIERDA -->
                 <div class="flex items-center space-x-3">
-                    <div class="bg-sba-yellow text-sba-navy font-black px-3 py-1 rounded-lg text-lg tracking-wider shadow">
-                        aCuenta
+                    <div class="bg-white p-1 rounded-lg shadow flex items-center justify-center">
+                        <img src="acuenta.png" alt="SuperBodega aCuenta Logo" class="h-10 w-auto object-contain">
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold leading-tight">VISITA 155 - SuperBodega aCuenta</h1>
+                        <h1 class="text-lg font-bold leading-tight text-white">VISITA 155 - SuperBodega aCuenta</h1>
                         <p class="text-xs text-sba-yellow font-medium">Local 155 - San Javier (Cienfuegos)</p>
                     </div>
                 </div>
 
                 <!-- ACCIÓN PDF DERECHA -->
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="pauta_visita_tienda_con_qr.pdf" download target="_blank" 
-                       class="inline-flex items-center space-x-2 bg-sba-green hover:bg-sba-greenDark text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow">
-                        <i class="fa-solid fa-file-pdf text-sba-yellow">pauta_visita_tienda_con_qr.pdf</i>
+                    <a href="pautavisita155.pdf" download target="_blank" 
+                       class="inline-flex items-center space-x-2 bg-sba-red hover:bg-sba-redDark text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow">
+                        <i class="fa-solid fa-file-pdf text-sba-yellow"></i>
                         <span>Descargar PDF</span>
                     </a>
                 </div>
@@ -92,11 +92,11 @@
         <!-- NAVEGACIÓN PESTAÑAS (DESKTOP) -->
         <nav class="hidden md:flex bg-sba-navyDark border-t border-slate-700/50 px-4 sm:px-6 lg:px-8">
             <div class="max-w-7xl mx-auto flex space-x-1 overflow-x-auto w-full custom-scrollbar py-1">
-                <button onclick="switchTab('resumen')" id="tab-resumen" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-white bg-sba-green">
+                <button onclick="switchTab('resumen')" id="tab-resumen" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-white bg-sba-red">
                     <i class="fa-solid fa-chart-line mr-2 text-sba-yellow"></i>Resumen General
                 </button>
                 <button onclick="switchTab('cronograma')" id="tab-cronograma" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
-                    <i class="fa-solid fa-clock mr-2 text-sba-yellow"></i>Pauta y Etapas (1h 40m)
+                    <i class="fa-solid fa-clock mr-2 text-sba-yellow"></i>Pauta y Etapas (2h 00m)
                 </button>
                 <button onclick="switchTab('comercial')" id="tab-comercial" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
                     <i class="fa-solid fa-store mr-2 text-sba-yellow"></i>Resultados Comerciales
@@ -106,6 +106,9 @@
                 </button>
                 <button onclick="switchTab('mermas')" id="tab-mermas" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
                     <i class="fa-solid fa-chart-pie mr-2 text-sba-yellow"></i>Fresh Loss & Inventario
+                </button>
+                <button onclick="switchTab('iniciativas')" id="tab-iniciativas" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+                    <i class="fa-solid fa-bullhorn mr-2 text-sba-yellow"></i>Iniciativas
                 </button>
                 <button onclick="switchTab('pdf')" id="tab-pdf" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
                     <i class="fa-solid fa-file-pdf mr-2 text-sba-yellow"></i>Documento PDF Integrado
@@ -130,10 +133,13 @@
             <button onclick="switchTab('mermas'); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 flex items-center">
                 <i class="fa-solid fa-chart-pie w-6 text-sba-yellow"></i>Fresh Loss & Inventario
             </button>
+            <button onclick="switchTab('iniciativas'); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 flex items-center">
+                <i class="fa-solid fa-bullhorn w-6 text-sba-yellow"></i>Iniciativas
+            </button>
             <button onclick="switchTab('pdf'); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 flex items-center">
                 <i class="fa-solid fa-file-pdf w-6 text-sba-yellow"></i>Documento PDF Integrado
             </button>
-            <a href="pauta_visita_tienda_con_qr.pdf" download class="w-full mt-2 inline-flex justify-center items-center space-x-2 bg-sba-green text-white px-4 py-2 rounded-lg text-sm font-semibold">
+            <a href="pautavisita155.pdf" download class="w-full mt-2 inline-flex justify-center items-center space-x-2 bg-sba-red text-white px-4 py-2 rounded-lg text-sm font-semibold">
                 <i class="fa-solid fa-download"></i><span>Descargar PDF Adjunto</span>
             </a>
         </div>
@@ -142,8 +148,8 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-        <!-- BANNER DE BIENVENIDA -->
-        <div class="bg-gradient-to-r from-sba-navy via-slate-900 to-sba-navy text-white rounded-2xl p-6 shadow-xl border border-slate-700/50 relative overflow-hidden">
+        <!-- BANNER DE BIENVENIDA CON ESTILO INSTITUCIONAL ROJO/AZUL -->
+        <div class="bg-gradient-to-r from-sba-navy via-slate-900 to-sba-navy text-white rounded-2xl p-6 shadow-xl border-l-8 border-l-sba-red border border-slate-700/50 relative overflow-hidden">
             <div class="absolute -right-10 -bottom-10 opacity-10 text-sba-yellow">
                 <i class="fa-solid fa-store text-[200px]"></i>
             </div>
@@ -161,7 +167,7 @@
                 <div class="flex items-center space-x-3 bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
                     <div class="text-center px-3 border-r border-slate-600">
                         <span class="block text-xs text-slate-300 font-medium">Duración Pauta</span>
-                        <span class="text-lg font-bold text-sba-yellow"><i class="fa-regular fa-clock mr-1"></i>1h 40m</span>
+                        <span class="text-lg font-bold text-sba-yellow"><i class="fa-regular fa-clock mr-1"></i>2h 00m</span>
                     </div>
                     <div class="text-center px-3">
                         <span class="block text-xs text-slate-300 font-medium">Gerente Tienda</span>
@@ -177,23 +183,23 @@
             <!-- TARJETAS METRICAS CLAVE OCTUBRE -->
             <div>
                 <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center">
-                    <i class="fa-solid fa-bolt text-sba-yellow mr-2"></i>Indicadores Clave de Octubre (Corte 18/10)
+                    <i class="fa-solid fa-bolt text-sba-red mr-2"></i>Indicadores Clave de Octubre (Corte Actualizado al 27/10)
                 </h3>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow transition">
                         <span class="text-xs font-semibold text-slate-500 uppercase">Venta Total</span>
-                        <div class="text-xl font-extrabold text-sba-navy mt-1">$523,36M</div>
-                        <span class="text-[11px] font-medium text-emerald-600"><i class="fa-solid fa-arrow-up text-[10px]"></i> +2,34% vs LY</span>
+                        <div class="text-xl font-extrabold text-sba-navy mt-1">$832,41M</div>
+                        <span class="text-[11px] font-medium text-sba-green"><i class="fa-solid fa-arrow-up text-[10px]"></i> +2,20% vs LY</span>
                     </div>
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow transition">
                         <span class="text-xs font-semibold text-slate-500 uppercase">Tickets</span>
                         <div class="text-xl font-extrabold text-sba-navy mt-1">28.562</div>
-                        <span class="text-[11px] font-medium text-emerald-600"><i class="fa-solid fa-arrow-up text-[10px]"></i> +1,88% vs LY</span>
+                        <span class="text-[11px] font-medium text-sba-green"><i class="fa-solid fa-arrow-up text-[10px]"></i> +1,88% vs LY</span>
                     </div>
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow transition">
                         <span class="text-xs font-semibold text-slate-500 uppercase">Ticket Promedio</span>
                         <div class="text-xl font-extrabold text-sba-navy mt-1">$18.323</div>
-                        <span class="text-[11px] font-medium text-emerald-600"><i class="fa-solid fa-arrow-up text-[10px]"></i> +0,45% vs LY</span>
+                        <span class="text-[11px] font-medium text-sba-green"><i class="fa-solid fa-arrow-up text-[10px]"></i> +0,45% vs LY</span>
                     </div>
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow transition border-l-4 border-l-sba-green">
                         <span class="text-xs font-semibold text-slate-500 uppercase">Price Gap</span>
@@ -218,20 +224,20 @@
                 <!-- RESUMEN DE DIAGNÓSTICO -->
                 <div class="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
                     <h3 class="text-lg font-bold text-slate-900 border-b pb-2 flex items-center justify-between">
-                        <span><i class="fa-solid fa-clipboard-check text-sba-green mr-2"></i>Diagnóstico Transversal de la Visita</span>
+                        <span><i class="fa-solid fa-clipboard-check text-sba-red mr-2"></i>Diagnóstico Transversal de la Visita</span>
                         <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-semibold">Local 155</span>
                     </h3>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
                             <h4 class="text-sm font-bold text-emerald-900 flex items-center mb-2">
-                                <i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i>Fortalezas Destacadas
+                                <i class="fa-solid fa-circle-check text-sba-green mr-2"></i>Fortalezas Destacadas
                             </h4>
                             <ul class="text-xs text-emerald-800 space-y-1.5 list-disc list-inside">
                                 <li><strong>Price Gap:</strong> Mantiene la mayor ventaja competitiva de la zona (11,40%).</li>
-                                <li><strong>Categorías en alza:</strong> Frutas/Verduras (+16,6%), Carnicería (+3,7%), Mascotas (+10,9%).</li>
-                                <li><strong>Vestuario Infantil & Damas:</strong> Crecimiento excepcional en Niños (+1.319%) y Niñas (+448%).</li>
-                                <li><strong>Fresh Loss:</strong> Fuerte tendencia de recuperación desde febrero (-20,84%) a niveles de -4,50%.</li>
+                                <li><strong>Categorías en alza:</strong> Frutas/Verduras (+24,9%), Carnicería (+7,6%), Mascotas (+17,1%).</li>
+                                <li><strong>Vestuario Infantil & Damas:</strong> Crecimiento excepcional en Niños (+1.166,9%) y Niñas (+483,9%).</li>
+                                <li><strong>Brecha vs Plan:</strong> Reducción drástica al pasar de -10,92% a -1,34% (al 27/10).</li>
                             </ul>
                         </div>
 
@@ -240,10 +246,10 @@
                                 <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i>Oportunidades Prioritarias
                             </h4>
                             <ul class="text-xs text-amber-800 space-y-1.5 list-disc list-inside">
-                                <li><strong>Desviación vs Plan:</strong> Venta acumulada del mes en -10,92%.</li>
-                                <li><strong>Vestuario Bebé y Ropa Interior:</strong> Fuerte caída de -46,1% y -50,1% respectivamente.</li>
-                                <li><strong>eCommerce:</strong> Participación bajó a 3,95% (puesto #7/12 en la zona Maule).</li>
-                                <li><strong>Merma Retail Anual:</strong> Deterioro a -1,18% (meta 2027: 1,10%) con quiebre concentrado en GM (46,7%).</li>
+                                <li><strong>Vestuario Bebé y Ropa Interior:</strong> Caídas marcadas de -44,3% y -38,4% respectivamente.</li>
+                                <li><strong>Licores:</strong> Profundizó su caída a -7,9% (vs -3,7% previo).</li>
+                                <li><strong>Participación Digital:</strong> Bajó a 3,1% debido a la rápida aceleración de la venta física.</li>
+                                <li><strong>Merma Retail Anual:</strong> Deterioro a -1,18% con quiebre concentrado en GM (46,7%).</li>
                             </ul>
                         </div>
                     </div>
@@ -252,15 +258,15 @@
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Plan de Acción Inmediato</h4>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 border-l-4 border-l-sba-red">
                                 <span class="font-bold text-sba-navy block">1. Impulso Textil</span>
                                 Sostener categorías infantiles y focalizar recuperación inmediata en Vestuario Bebé.
                             </div>
-                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 border-l-4 border-l-sba-red">
                                 <span class="font-bold text-sba-navy block">2. Aprovechar Price Gap</span>
-                                Comunicación agresiva de precios para cerrar brecha del -10,92% vs plan comercial.
+                                Comunicación agresiva de precios para terminar el mes sobre plan comercial.
                             </div>
-                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200 border-l-4 border-l-sba-red">
                                 <span class="font-bold text-sba-navy block">3. Control de Quiebres</span>
                                 Priorizar auditoría PI y orden de pasillos en GM para frenar Merma Retail.
                             </div>
@@ -289,7 +295,7 @@
                         </div>
                         <div class="flex justify-between items-center pb-2 border-b">
                             <span class="text-slate-500 font-medium">Pobreza CASEN 2024:</span>
-                            <span class="font-bold text-sba-red">25,8% (+16,1pp vs 2022)</span>
+                            <span class="font-bold text-sba-statusRed">25,8% (+16,1pp vs 2022)</span>
                         </div>
                         <div class="flex justify-between items-center pb-2 border-b">
                             <span class="text-slate-500 font-medium">Motor Económico Local:</span>
@@ -322,105 +328,105 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b gap-2">
                     <div>
                         <h3 class="text-xl font-bold text-slate-900">Pauta de Visita a Tienda (9 Etapas)</h3>
-                        <p class="text-slate-500 text-sm">Recorrido total programado de 1 hora y 40 minutos</p>
+                        <p class="text-slate-500 text-sm">Recorrido total programado de 2 horas</p>
                     </div>
                     <div class="bg-sba-yellow/20 text-sba-navy border border-sba-yellow px-4 py-2 rounded-xl text-xs font-extrabold flex items-center space-x-2">
-                        <i class="fa-solid fa-qrcode text-lg"></i>
+                        <i class="fa-solid fa-qrcode text-lg text-sba-red"></i>
                         <span>ESCANEA EL CÓDIGO QR EN TIENDA PARA MÉTRICAS EN VIVO</span>
                     </div>
                 </div>
 
-                <!-- ACORDEON / CARDS DE LAS 9 ETAPAS -->
+                <!-- CARDS DE LAS 9 ETAPAS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                     
                     <!-- ETAPA 1 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 1</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>7 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>9 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Bienvenida y Tienda</h4>
                         <p class="text-xs text-slate-600 mt-2">Presentación del equipo (Ana Valenzuela, Gerente de Tienda), dotación (60 colaboradores), entorno socioeconómico y competidores.</p>
                     </div>
 
                     <!-- ETAPA 2 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 2</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>8 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>11 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Resultados & Omnicanalidad</h4>
-                        <p class="text-xs text-slate-600 mt-2">Revisión de Venta Total ($523,36M), cumplimiento de plan, ticket promedio ($18.323) y desempeño Ecommerce (3,95%).</p>
+                        <p class="text-xs text-slate-600 mt-2">Revisión de Venta Total ($832,41M), cumplimiento del plan, ticket promedio ($18.323) y resultados digitales.</p>
                     </div>
 
                     <!-- ETAPA 3 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 3</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>8 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>11 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">GM: Categorías y Oportunidades</h4>
                         <p class="text-xs text-slate-600 mt-2">Análisis de departamento Vestuario. Impulso en categorías infantiles vs recuperación en Bebé y Ropa Interior.</p>
                     </div>
 
                     <!-- ETAPA 4 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 4</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>10 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>13 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Vegetales y Panadería</h4>
-                        <p class="text-xs text-slate-600 mt-2">Desempeño de Frutas/Verduras ($11,77M / +16,6%) y Panadería empacada vs recuperación de Panadería fresca.</p>
+                        <p class="text-xs text-slate-600 mt-2">Frutas/Verduras/Granos (+24,9%). Panadería empacada plana y panadería fresca en seguimiento.</p>
                     </div>
 
                     <!-- ETAPA 5 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 5</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>10 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>13 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Trastienda y Patio</h4>
-                        <p class="text-xs text-slate-600 mt-2">Revisión de orden, señalética, flujo de camiones, disponibilidad de transpaletas y gestión con proveedores directos.</p>
+                        <p class="text-xs text-slate-600 mt-2">Instock, flujo de camiones, orden, señalética de patio/andén, iluminación, transpaletas y proveedores directos.</p>
                     </div>
 
                     <!-- ETAPA 6 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 6</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>10 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>13 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Carnicería</h4>
-                        <p class="text-xs text-slate-600 mt-2">Desempeño de Carne Cruda/Congelada ($33,46M / +3,7%) y destaca Vacuno Fresco ($24,86M). Mantener mix y margen.</p>
+                        <p class="text-xs text-slate-600 mt-2">Carne Cruda/Congelada (+7,6% / $53,70M). Vacuno Fresco destacado en ventas brutas. Cuidado del mix y margen.</p>
                     </div>
 
                     <!-- ETAPA 7 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 7</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>11 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>15 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Vinos, Licores y Cervezas</h4>
-                        <p class="text-xs text-slate-600 mt-2">Venta de Licores ($17,14M / -3,7%). Foco en disponibilidad, reposición rápida y exhibición en cabeceras.</p>
+                        <p class="text-xs text-slate-600 mt-2">Licores en -7,9% ($27,16M). Foco estricto en disponibilidad, reposición y exhibición para revertir la caída.</p>
                     </div>
 
                     <!-- ETAPA 8 -->
-                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-green transition bg-slate-50/50">
+                    <div class="border border-slate-200 rounded-xl p-4 hover:border-sba-red transition bg-slate-50/50">
                         <div class="flex justify-between items-start mb-2">
                             <span class="bg-sba-navy text-white text-xs font-bold px-2.5 py-1 rounded-md">ETAPA 8</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>11 min</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>15 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Bebidas Gaseosas y Mascotas</h4>
-                        <p class="text-xs text-slate-600 mt-2">Mascotas en crecimiento constante ($9,88M / +10,9%). Bebidas en $31,40M requiere empuje de volumen.</p>
+                        <p class="text-xs text-slate-600 mt-2">Mascotas con excelente desempeño (+17,1% / $15,79M). Bebidas Abarrotes estables (+0,9%).</p>
                     </div>
 
                     <!-- ETAPA 9 -->
-                    <div class="border-2 border-sba-yellow rounded-xl p-4 hover:border-sba-green transition bg-amber-50/40">
+                    <div class="border-2 border-sba-red rounded-xl p-4 hover:border-sba-navy transition bg-red-50/30">
                         <div class="flex justify-between items-start mb-2">
-                            <span class="bg-sba-yellow text-sba-navy text-xs font-extrabold px-2.5 py-1 rounded-md">ETAPA 9</span>
-                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>15 min</span>
+                            <span class="bg-sba-red text-white text-xs font-extrabold px-2.5 py-1 rounded-md">ETAPA 9</span>
+                            <span class="text-xs font-bold text-sba-green bg-emerald-100 px-2 py-0.5 rounded-full"><i class="fa-regular fa-clock mr-1"></i>20 min</span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">Cierre, Acuerdos y Reconocimiento</h4>
-                        <p class="text-xs text-slate-600 mt-2">Resumen de hallazgos, definición de responsables, plan de acción transversal y reconocimiento al equipo de sala.</p>
+                        <p class="text-xs text-slate-600 mt-2">Resumen de hallazgos, plan de acción transversal, compromisos por responsable y reconocimiento al equipo.</p>
                     </div>
 
                 </div>
@@ -432,8 +438,8 @@
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
                 <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b">
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900">Resultados Comerciales - Octubre (Corte 18/10)</h3>
-                        <p class="text-slate-500 text-sm">Desempeño de ventas, omnicanalidad y posición competitiva</p>
+                        <h3 class="text-xl font-bold text-slate-900">Resultados Comerciales - Octubre (Corte Actualizado 27/10)</h3>
+                        <p class="text-slate-500 text-sm">Desempeño de ventas, tráfico, omnicanalidad y posición competitiva</p>
                     </div>
                 </div>
 
@@ -443,15 +449,15 @@
                         <h4 class="font-bold text-sba-navy text-sm uppercase tracking-wide border-b pb-2">Ventas y Flujo de Clientes</h4>
                         <div class="flex justify-between items-center text-xs py-1 border-b">
                             <span class="text-slate-600">Venta Total Acumulada:</span>
-                            <span class="font-bold text-slate-900 text-sm">$523,36 MM</span>
+                            <span class="font-bold text-slate-900 text-sm">$832,41 MM</span>
                         </div>
                         <div class="flex justify-between items-center text-xs py-1 border-b">
                             <span class="text-slate-600">Desviación vs Plan:</span>
-                            <span class="font-bold text-red-600">-10,92%</span>
+                            <span class="font-bold text-sba-green">-1,34% (Se achicó fuerte)</span>
                         </div>
                         <div class="flex justify-between items-center text-xs py-1 border-b">
                             <span class="text-slate-600">Variación vs Año Anterior (LY):</span>
-                            <span class="font-bold text-emerald-600">+2,34%</span>
+                            <span class="font-bold text-sba-green">+2,20%</span>
                         </div>
                         <div class="flex justify-between items-center text-xs py-1 border-b">
                             <span class="text-slate-600">Total Tickets:</span>
@@ -463,45 +469,27 @@
                         </div>
                     </div>
 
-                    <!-- RANKINGS Y ZONA -->
+                    <!-- OMNICANALIDAD & EXPERIENCIA -->
                     <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
-                        <h4 class="font-bold text-sba-navy text-sm uppercase tracking-wide border-b pb-2">Posicionamiento & Rankings Octubre</h4>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
-                                <thead>
-                                    <tr class="text-slate-500 border-b">
-                                        <th class="pb-2">Indicador</th>
-                                        <th class="pb-2">Proto 1870</th>
-                                        <th class="pb-2">Mercado</th>
-                                        <th class="pb-2">SBA Red</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-200 font-medium">
-                                    <tr>
-                                        <td class="py-2 text-slate-700">Venta Total</td>
-                                        <td class="py-2 text-slate-900">#58/88 <span class="text-xs text-red-500">(LY #28)</span></td>
-                                        <td class="py-2 text-slate-900">#5/12</td>
-                                        <td class="py-2 text-slate-900">#67/128</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-2 text-slate-700">Part. eCommerce</td>
-                                        <td class="py-2 text-slate-900">#73/88</td>
-                                        <td class="py-2 text-slate-900">#7/12</td>
-                                        <td class="py-2 text-slate-900">#107/127</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-2 text-slate-700">Venta SOD</td>
-                                        <td class="py-2 text-slate-900">#71/88</td>
-                                        <td class="py-2 text-slate-900">#5/12</td>
-                                        <td class="py-2 text-slate-900">#97/127</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <h4 class="font-bold text-sba-navy text-sm uppercase tracking-wide border-b pb-2">Omnicanalidad & Experiencia</h4>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between py-1 border-b">
+                                <span class="text-slate-600">Venta Digital (Part. 3,1%):</span>
+                                <span class="font-bold text-slate-900">SOD $25,78M + HD $12,10M</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b">
+                                <span class="text-slate-600">Price Gap Zona Maule:</span>
+                                <span class="font-bold text-sba-green">11,40% (#1 de la zona)</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b">
+                                <span class="text-slate-600">Nivel de Servicio (NSG):</span>
+                                <span class="font-bold text-slate-900">96,3% (Completitud SS 97,3%)</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b">
+                                <span class="text-slate-600">Satisfacción NPS:</span>
+                                <span class="font-bold text-slate-900">84,7% (NPS Físico 83,5%)</span>
+                            </div>
                         </div>
-                        <p class="text-[11px] text-amber-800 bg-amber-50 p-2 rounded border border-amber-200 mt-2">
-                            <strong>Atención:</strong> En Venta dentro del formato Proto 1870 bajó del puesto #28 al #58 vs el año anterior.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -513,7 +501,7 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b">
                     <div>
                         <h3 class="text-xl font-bold text-slate-900">Desempeño de Categorías y General Merchandise (GM)</h3>
-                        <p class="text-slate-500 text-sm">Categorías impulsoras vs áreas de recuperación prioritaria</p>
+                        <p class="text-slate-500 text-sm">Categorías impulsoras vs áreas de recuperación prioritaria (Corte 26/10)</p>
                     </div>
                 </div>
 
@@ -521,36 +509,36 @@
                     <!-- CATEGORIAS GANADORAS -->
                     <div class="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-200">
                         <h4 class="font-bold text-emerald-900 text-sm flex items-center mb-4">
-                            <i class="fa-solid fa-arrow-trend-up text-emerald-600 mr-2 text-lg"></i>Categorías Ganadoras (Octubre vs LY)
+                            <i class="fa-solid fa-arrow-trend-up text-sba-green mr-2 text-lg"></i>Categorías Ganadoras (Octubre vs LY)
                         </h4>
                         <div class="space-y-3">
                             <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex justify-between items-center">
                                 <div>
                                     <span class="font-bold text-xs text-slate-800 block">Vestuario Niños</span>
-                                    <span class="text-[11px] text-slate-500">$841.385 vs $59.295 LY</span>
+                                    <span class="text-[11px] text-slate-500">$1.117.938 vs $88.245 LY</span>
                                 </div>
-                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+1.319,0%</span>
+                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+1.166,9%</span>
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex justify-between items-center">
                                 <div>
                                     <span class="font-bold text-xs text-slate-800 block">Vestuario Niñas</span>
-                                    <span class="text-[11px] text-slate-500">$871.769 vs $158.944 LY</span>
+                                    <span class="text-[11px] text-slate-500">$1.216.101 vs $208.266 LY</span>
                                 </div>
-                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+448,5%</span>
+                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+483,9%</span>
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex justify-between items-center">
                                 <div>
                                     <span class="font-bold text-xs text-slate-800 block">Frutas / Verduras / Granos</span>
-                                    <span class="text-[11px] text-slate-500">$11,77M vs $10,10M LY</span>
+                                    <span class="text-[11px] text-slate-500">$18,38M vs $14,72M LY</span>
                                 </div>
-                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+16,6%</span>
+                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+24,9%</span>
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-emerald-100 shadow-sm flex justify-between items-center">
                                 <div>
                                     <span class="font-bold text-xs text-slate-800 block">Mascotas</span>
-                                    <span class="text-[11px] text-slate-500">$9,88M vs $8,91M LY</span>
+                                    <span class="text-[11px] text-slate-500">$15,79M vs $13,48M LY</span>
                                 </div>
-                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+10,9%</span>
+                                <span class="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full">+17,1%</span>
                             </div>
                         </div>
                     </div>
@@ -558,36 +546,36 @@
                     <!-- OPORTUNIDADES Y CAÍDAS -->
                     <div class="bg-rose-50/60 p-5 rounded-2xl border border-rose-200">
                         <h4 class="font-bold text-rose-900 text-sm flex items-center mb-4">
-                            <i class="fa-solid fa-arrow-trend-down text-rose-600 mr-2 text-lg"></i>Categorías en Oportunidad de Recuperación
+                            <i class="fa-solid fa-arrow-trend-down text-sba-statusRed mr-2 text-lg"></i>Categorías en Oportunidad de Recuperación
                         </h4>
                         <div class="space-y-3">
                             <div class="bg-white p-3 rounded-xl border border-rose-100 shadow-sm flex justify-between items-center">
                                 <div>
-                                    <span class="font-bold text-xs text-slate-800 block">Ropa Interior</span>
-                                    <span class="text-[11px] text-slate-500">Caída relevante en volumen</span>
-                                </div>
-                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-50,1%</span>
-                            </div>
-                            <div class="bg-white p-3 rounded-xl border border-rose-100 shadow-sm flex justify-between items-center">
-                                <div>
                                     <span class="font-bold text-xs text-slate-800 block">Vestuario Bebé</span>
-                                    <span class="text-[11px] text-slate-500">Foco de recuperación urgente</span>
+                                    <span class="text-[11px] text-slate-500">$1,72M vs $3,09M LY</span>
                                 </div>
-                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-46,1%</span>
+                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-44,3%</span>
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-rose-100 shadow-sm flex justify-between items-center">
                                 <div>
-                                    <span class="font-bold text-xs text-slate-800 block">Panadería (Fresca)</span>
-                                    <span class="text-[11px] text-slate-500">$5,48M vs $6,68M LY</span>
+                                    <span class="font-bold text-xs text-slate-800 block">Ropa Interior</span>
+                                    <span class="text-[11px] text-slate-500">$1,04M vs $1,69M LY</span>
                                 </div>
-                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-17,9%</span>
+                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-38,4%</span>
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-rose-100 shadow-sm flex justify-between items-center">
                                 <div>
                                     <span class="font-bold text-xs text-slate-800 block">Licores</span>
-                                    <span class="text-[11px] text-slate-500">$17,14M vs $17,79M LY</span>
+                                    <span class="text-[11px] text-slate-500">$27,16M vs $29,50M LY</span>
                                 </div>
-                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-3,7%</span>
+                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-7,9%</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-rose-100 shadow-sm flex justify-between items-center">
+                                <div>
+                                    <span class="font-bold text-xs text-slate-800 block">Panadería (Fresca)</span>
+                                    <span class="text-[11px] text-slate-500">$8,87M vs $10,18M LY</span>
+                                </div>
+                                <span class="bg-rose-100 text-rose-800 font-extrabold text-xs px-2.5 py-1 rounded-full">-12,9%</span>
                             </div>
                         </div>
                     </div>
@@ -603,10 +591,10 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b gap-2">
                     <div>
                         <h3 class="text-lg font-bold text-slate-900">Evolución Fresh Loss (Mermas) 2026</h3>
-                        <p class="text-slate-500 text-xs">Muestra la clara tendencia de recuperación desde el peak crítico de Febrero (-20,84%) hasta niveles estables</p>
+                        <p class="text-slate-500 text-xs">Muestra la clara tendencia de recuperación desde el peak crítico de Febrero (-20,84%) hasta niveles estables en torno al -5%</p>
                     </div>
                     <div class="text-xs bg-slate-100 px-3 py-1.5 rounded-lg font-semibold text-slate-700">
-                        Total YTD 2026: <span class="text-red-600 font-bold">-8,38%</span> (Plan: -5,73%)
+                        Total YTD 2026: <span class="text-sba-statusRed font-bold">-8,38%</span> (Plan: -5,73%)
                     </div>
                 </div>
 
@@ -632,7 +620,7 @@
                         </div>
                         <div class="flex justify-between py-1 border-b bg-red-50 px-2 rounded">
                             <span class="text-slate-700 font-semibold">Año 2026:</span>
-                            <span class="font-bold text-red-600">-1,18% (Peor)</span>
+                            <span class="font-bold text-sba-statusRed">-1,18% (Peor)</span>
                         </div>
                         <div class="flex justify-between py-1 border-b bg-emerald-50 px-2 rounded">
                             <span class="text-emerald-900 font-extrabold">Desafío 2027:</span>
@@ -659,7 +647,7 @@
                         </div>
                         <div class="flex justify-between py-1 border-b">
                             <span class="text-slate-600">% Quiebre GM:</span>
-                            <span class="font-bold text-red-600">46,70% (Foco Crítico)</span>
+                            <span class="font-bold text-sba-statusRed">46,70% (Foco Crítico)</span>
                         </div>
                     </div>
                 </div>
@@ -701,33 +689,89 @@
             </div>
         </section>
 
-        <!-- PESTAÑA 6: DOCUMENTO PDF INTEGRADO -->
+        <!-- PESTAÑA 6: INICIATIVAS -->
+        <section id="sec-iniciativas" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center">
+                            <i class="fa-solid fa-bullhorn text-sba-red mr-2"></i>Iniciativas Comerciales y de Precios en Terreno
+                        </h3>
+                        <p class="text-slate-500 text-sm">Exhibición de altas mapeadas y promociones destacadas en fachada/acceso de tienda</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- INICIATIVA 1 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col">
+                        <div class="p-4 bg-sba-navy text-white flex justify-between items-center">
+                            <h4 class="font-bold text-sm">Iniciativa Promocional: Bebidas & Panadería</h4>
+                            <span class="bg-sba-red text-white text-xs font-black px-2.5 py-0.5 rounded-full">Destacado</span>
+                        </div>
+                        <div class="p-4 flex-grow flex flex-col justify-between space-y-4">
+                            <div class="rounded-xl overflow-hidden border border-slate-300 shadow-inner bg-black/5 flex items-center justify-center">
+                                <img src="panycerveza.png" alt="Iniciativa Promocional Cerveza y Pan" class="object-cover hover:scale-105 transition duration-300 w-full h-auto max-h-96">
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+                                <p class="font-bold text-slate-800"><i class="fa-solid fa-tag text-sba-green mr-1"></i> Precios Mapeados:</p>
+                                <ul class="list-disc list-inside text-slate-600 space-y-0.5">
+                                    <li><strong>Cerveza Cristal 24 Pack:</strong> $10.990</li>
+                                    <li><strong>Pan Hallulla / Marraqueta 1KG:</strong> $1.890</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INICIATIVA 2 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col">
+                        <div class="p-4 bg-sba-navy text-white flex justify-between items-center">
+                            <h4 class="font-bold text-sm">Iniciativa de Precios Básicos: Leche & Aceite</h4>
+                            <span class="bg-sba-red text-white text-xs font-black px-2.5 py-0.5 rounded-full">Canasta Básica</span>
+                        </div>
+                        <div class="p-4 flex-grow flex flex-col justify-between space-y-4">
+                            <div class="rounded-xl overflow-hidden border border-slate-300 shadow-inner bg-black/5 flex items-center justify-center">
+                                <img src="lecheyaceite.png" alt="Iniciativa Leche Entera y Aceite" class="object-cover hover:scale-105 transition duration-300 w-full h-auto max-h-96">
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+                                <p class="font-bold text-slate-800"><i class="fa-solid fa-tag text-sba-green mr-1"></i> Precios Mapeados:</p>
+                                <ul class="list-disc list-inside text-slate-600 space-y-0.5">
+                                    <li><strong>Leche Entera Lider 1L:</strong> $1.000</li>
+                                    <li><strong>Aceite Acuenta 900ML:</strong> $1.590</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 7: DOCUMENTO PDF INTEGRADO -->
         <section id="sec-pdf" class="hidden space-y-4">
             <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                    <h3 class="text-lg font-bold text-slate-900">Visor del Documento PDF Adjunto</h3>
-                    <p class="text-xs text-slate-500">Documento de Pauta de Visita Original (pauta_visita_tienda_con_qr.pdf)</p>
+                    <h3 class="text-lg font-bold text-slate-900">Visor del Documento PDF Integrado</h3>
+                    <p class="text-xs text-slate-500">Documento Actualizado (pautavisita155.pdf)</p>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <a href="pauta_visita_tienda_con_qr.pdf" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-1.5 rounded-lg text-xs font-semibold">
+                    <a href="pautavisita155.pdf" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-1.5 rounded-lg text-xs font-semibold">
                         <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i>Abrir en pestaña nueva
                     </a>
-                    <a href="pauta_visita_tienda_con_qr.pdf" download class="bg-sba-green hover:bg-sba-greenDark text-white px-3 py-1.5 rounded-lg text-xs font-semibold">
+                    <a href="pautavisita155.pdf" download class="bg-sba-red hover:bg-sba-redDark text-white px-3 py-1.5 rounded-lg text-xs font-semibold">
                         <i class="fa-solid fa-download mr-1"></i>Descargar
                     </a>
                 </div>
             </div>
 
             <div class="bg-slate-800 rounded-2xl overflow-hidden shadow-xl border border-slate-700 min-h-[650px] flex flex-col">
-                <iframe src="pauta_visita_tienda_con_qr.pdf" class="w-full h-[650px] border-0" title="Visor de PDF Pauta de Visita">
-                    <p class="text-white p-6 text-center">Su navegador no soporta vista previa de PDF. Puede <a href="pauta_visita_tienda_con_qr.pdf" class="text-sba-yellow underline">descargarlo directamente aquí</a>.</p>
+                <iframe src="pautavisita155.pdf" class="w-full h-[650px] border-0" title="Visor de PDF Pauta de Visita">
+                    <p class="text-white p-6 text-center">Su navegador no soporta vista previa de PDF. Puede <a href="pautavisita155.pdf" class="text-sba-yellow underline">descargarlo directamente aquí</a>.</p>
                 </iframe>
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER INSTITUCIONAL -->
     <footer class="bg-sba-navy text-white border-t border-slate-700 mt-10 py-6">
         <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center text-xs text-slate-400 space-y-2 sm:space-y-0">
             <div>
@@ -741,10 +785,12 @@
 
     <!-- LOGICA JAVASCRIPT -->
     <script>
+        let chartInstance = null;
+
         // Función para alternar pestañas
         function switchTab(tabName) {
             // Ocultar todas las secciones
-            const sections = ['resumen', 'cronograma', 'comercial', 'categorias', 'mermas', 'pdf'];
+            const sections = ['resumen', 'cronograma', 'comercial', 'categorias', 'mermas', 'iniciativas', 'pdf'];
             sections.forEach(sec => {
                 const el = document.getElementById('sec-' + sec);
                 if (el) el.classList.add('hidden');
@@ -753,7 +799,7 @@
             // Quitar estilos activos de todos los botones de pestaña
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => {
-                btn.classList.remove('bg-sba-green', 'text-white');
+                btn.classList.remove('bg-sba-red', 'text-white');
                 btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
             });
 
@@ -763,11 +809,16 @@
                 targetSection.classList.remove('hidden');
             }
 
-            // Activar botón seleccionado
+            // Activar botón seleccionado con rojo institucional
             const activeBtn = document.getElementById('tab-' + tabName);
             if (activeBtn) {
                 activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
-                activeBtn.classList.add('bg-sba-green', 'text-white');
+                activeBtn.classList.add('bg-sba-red', 'text-white');
+            }
+
+            // Si se abre la pestaña de mermas, renderizar el gráfico
+            if (tabName === 'mermas') {
+                setTimeout(initFreshLossChart, 50);
             }
         }
 
@@ -777,17 +828,16 @@
             menu.classList.toggle('hidden');
         }
 
-        // Inicialización de Gráficos al cargar la ventana
-        window.onload = function() {
-            initFreshLossChart();
-        };
-
         // Renderizado del gráfico Fresh Loss con Chart.js
         function initFreshLossChart() {
             const ctx = document.getElementById('freshLossChart');
             if (!ctx) return;
 
-            new Chart(ctx, {
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep'],
@@ -795,13 +845,13 @@
                         {
                             label: 'Real 2026 (%)',
                             data: [-12.44, -20.84, -16.00, -4.53, -7.17, -8.22, -2.67, -5.22, -4.50],
-                            borderColor: '#D62828',
-                            backgroundColor: 'rgba(214, 40, 40, 0.1)',
+                            borderColor: '#C8102E',
+                            backgroundColor: 'rgba(200, 16, 46, 0.1)',
                             fill: true,
                             tension: 0.3,
                             borderWidth: 3,
                             pointRadius: 4,
-                            pointBackgroundColor: '#D62828'
+                            pointBackgroundColor: '#C8102E'
                         },
                         {
                             label: 'Plan (%)',
