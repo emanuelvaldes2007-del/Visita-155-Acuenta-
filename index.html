@@ -101,6 +101,9 @@
                 <button onclick="switchTab('comercial')" id="tab-comercial" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
                     <i class="fa-solid fa-store mr-2 text-sba-yellow"></i>Resultados Comerciales
                 </button>
+                <button onclick="switchTab('excelencia')" id="tab-excelencia" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+                    <i class="fa-solid fa-shield-halved mr-2 text-sba-yellow"></i>Resultado Excelencia Operacional
+                </button>
                 <button onclick="switchTab('categorias')" id="tab-categorias" class="tab-btn px-4 py-2 text-sm font-medium rounded-md transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
                     <i class="fa-solid fa-boxes-stacked mr-2 text-sba-yellow"></i>Categorías & GM
                 </button>
@@ -126,6 +129,9 @@
             </button>
             <button onclick="switchTab('comercial'); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 flex items-center">
                 <i class="fa-solid fa-store w-6 text-sba-yellow"></i>Resultados Comerciales
+            </button>
+            <button onclick="switchTab('excelencia'); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 flex items-center">
+                <i class="fa-solid fa-shield-halved w-6 text-sba-yellow"></i>Resultado Excelencia Operacional
             </button>
             <button onclick="switchTab('categorias'); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 flex items-center">
                 <i class="fa-solid fa-boxes-stacked w-6 text-sba-yellow"></i>Categorías & GM
@@ -495,6 +501,42 @@
             </div>
         </section>
 
+        <!-- PESTAÑA NUEVA: RESULTADO EXCELENCIA OPERACIONAL -->
+        <section id="sec-excelencia" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center">
+                            <i class="fa-solid fa-shield-halved text-sba-red mr-2"></i>Reporte de Excelencia Operacional
+                        </h3>
+                        <p class="text-slate-500 text-sm">Evaluación de auditoría de procesos, cumplimiento por área y listas de verificación</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- REPORTE GENERAL OPS -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-sm">
+                        <h4 class="font-bold text-sba-navy text-base mb-3 flex items-center">
+                            <i class="fa-solid fa-chart-column mr-2 text-sba-red"></i>Reporte de Visita Excelencia Operacional
+                        </h4>
+                        <div class="rounded-xl overflow-hidden border border-slate-300 bg-white p-2 flex justify-center">
+                            <img src="ops.png" alt="Reporte Visita Excelencia Operacional" class="w-full h-auto max-w-5xl rounded-lg shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- DETALLE CUMPLIMIENTO PREGUNTAS OP -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-4 shadow-sm">
+                        <h4 class="font-bold text-sba-navy text-base mb-3 flex items-center">
+                            <i class="fa-solid fa-list-check mr-2 text-sba-red"></i>Detalle de Cumplimiento por Módulo y Preguntas
+                        </h4>
+                        <div class="rounded-xl overflow-hidden border border-slate-300 bg-white p-2 flex justify-center">
+                            <img src="op.png" alt="Detalle Cumplimiento Preguntas Excelencia Operacional" class="w-full h-auto max-w-5xl rounded-lg shadow-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- PESTAÑA 4: CATEGORÍAS & GM -->
         <section id="sec-categorias" class="hidden space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
@@ -713,7 +755,7 @@
                                 <img src="panycerveza.png" alt="Iniciativa Promocional Cerveza y Pan" class="object-cover hover:scale-105 transition duration-300 w-full h-auto max-h-96">
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
-                                <p class="font-bold text-slate-800"><i class="fa-solid fa-tag text-sba-green mr-1"></i> Precios Mapeados:</p>
+                                <p class="font-bold text-slate-800"><i class="fa-solid fa-tag text-sba-green mr-1"></i> Precios:</p>
                                 <ul class="list-disc list-inside text-slate-600 space-y-0.5">
                                     <li><strong>Cerveza Cristal 24 Pack:</strong> $10.990</li>
                                     <li><strong>Pan Hallulla / Marraqueta 1KG:</strong> $1.890</li>
@@ -733,7 +775,7 @@
                                 <img src="lecheyaceite.png" alt="Iniciativa Leche Entera y Aceite" class="object-cover hover:scale-105 transition duration-300 w-full h-auto max-h-96">
                             </div>
                             <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
-                                <p class="font-bold text-slate-800"><i class="fa-solid fa-tag text-sba-green mr-1"></i> Precios Mapeados:</p>
+                                <p class="font-bold text-slate-800"><i class="fa-solid fa-tag text-sba-green mr-1"></i> Precios:</p>
                                 <ul class="list-disc list-inside text-slate-600 space-y-0.5">
                                     <li><strong>Leche Entera Lider 1L:</strong> $1.000</li>
                                     <li><strong>Aceite Acuenta 900ML:</strong> $1.590</li>
@@ -790,7 +832,7 @@
         // Función para alternar pestañas
         function switchTab(tabName) {
             // Ocultar todas las secciones
-            const sections = ['resumen', 'cronograma', 'comercial', 'categorias', 'mermas', 'iniciativas', 'pdf'];
+            const sections = ['resumen', 'cronograma', 'comercial', 'excelencia', 'categorias', 'mermas', 'iniciativas', 'pdf'];
             sections.forEach(sec => {
                 const el = document.getElementById('sec-' + sec);
                 if (el) el.classList.add('hidden');
